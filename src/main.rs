@@ -1,4 +1,5 @@
 mod keycode_map;
+mod logger_structures;
 #[tokio::main]
 async fn main() {
   // Initialize all devices that emit `key` events.
@@ -19,11 +20,20 @@ async fn main() {
             let input = event_stream.next_event().await.unwrap();
             match input.event_type() {
               evdev::EventType::KEY => {
-                // When an input happens, input.value() returns 1 for a press, 0 for a release, and 2 for a hold.
                 match input.value() {
-                  1 => println!("{}", keycode_map.get(&input.code()).unwrap_or(&String::from(""))),
-                  2 => println!("{}", keycode_map.get(&input.code()).unwrap_or(&String::from(""))),
-                  _ => {}
+                  // 0 is for a key released event.
+                  0 => {},
+                  // All other events are for key pressed or held.
+                  _ => {
+                    let key_press = logger_structures::KeyPress::new(
+                      match keycode_map.get(&input.code()) {
+                        Some(key) => key.to_string(),
+                        None => String::from("UNKNOWN"),
+                      },
+                      input.timestamp().duration_since(std::time::SystemTime::UNIX_EPOCH).unwrap().as_millis()
+                    );
+                    println!("{}", key_press.to_json());
+                  }
                 }
               },
               _ => {}

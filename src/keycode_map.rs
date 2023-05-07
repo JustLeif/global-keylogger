@@ -1,5 +1,4 @@
-// My initial implementation was convert evdev keycodes in a match statement for memory efficiency, but I realized the O(n) runtime would lead to async issues.
-// Enjoy viewing a PHAT HashMap :)
+/** My initial implementation was convert evdev keycodes in a match statement for memory efficiency, but I realized the O(n) runtime would lead to async issues. Enjoy viewing a PHAT HashMap :) */
 pub fn initialize_evdev_keycode_hashmap() -> std::collections::HashMap<u16, String> {
     std::collections::HashMap::from([
         (0, String::from("KEY_RESERVED")),
