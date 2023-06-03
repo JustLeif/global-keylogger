@@ -65,5 +65,5 @@ fn get_keyboards() -> Vec<evdev::Device> {
             }
         }
     }
-    devices
+    return devices;
 }
