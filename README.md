@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This Linux software is a binary executable that will globally log all connected devices key inputs, and store them in a remote MySQL database. **Written in Rust with crates evdev, tokio, and sqlx**
+This Linux software is a binary executable that will globally log all connected devices key inputs, and store them in a remote MySQL database. **Written in Rust with crates evdev, tokio, and sqlx**.
 
 ## Dependencies
 
